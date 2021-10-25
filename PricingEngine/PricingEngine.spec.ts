@@ -15,12 +15,12 @@ export class PricingEngineSpec {
     }
 
     @Test()
-    @TestCase(EUR(30), DurationInMinutes(3), EUR(10), DurationInMinutes(0), EUR(90))
-    @TestCase(EUR(30), DurationInMinutes(3), EUR(10), DurationInMinutes(10), EUR(190))
-    CalculatePrice_extended_reservation_charged_per_minute(pricePerMinute: Money, duration: Duration,
-                                                           extendedReservationPricePerMinute: Money, extendedReservationMinutes: Duration,
-                                                           totalPrice: Money) {
-        const actual = pricingEngine(pricePerMinute, duration, extendedReservationPricePerMinute, extendedReservationMinutes);
+    @TestCase(EUR(30), DurationInMinutes(3), DurationInMinutes(0), EUR(90))
+    @TestCase(EUR(30), DurationInMinutes(20), DurationInMinutes(10), EUR(300))
+    @TestCase(EUR(30), DurationInMinutes(5), DurationInMinutes(10), EUR(0))
+    @TestCase(EUR(30), DurationInMinutes(10), DurationInMinutes(10), EUR(0))
+    CalculatePrice_extended_reservation_charged_per_minute(pricePerMinute: Money, duration: Duration, freeMinutes: Duration, totalPrice: Money) {
+        const actual = pricingEngine(pricePerMinute, duration, freeMinutes);
         const expected = totalPrice;
 
         Expect(actual.equalTo(expected)).toBe(true);
