@@ -1,12 +1,12 @@
 export const Euro = "EUR";
 export const UnitedStatesDollar = "USD";
 
-export type Currencies = "EUR" | "USD";
+export type Currency = typeof Euro | typeof UnitedStatesDollar;
 
-class money implements Money{
+class money implements Money {
     constructor(
         readonly amountInCents: number,
-        readonly currency: Currencies
+        readonly currency: Currency
     ) {}
 
     equalTo(other: money): boolean {
