@@ -6,9 +6,8 @@ export const pricingEngine: CalculatePrice = (pricePerOne, amount, freeAmount = 
     return pricePerOne.multiplyAndRound(Math.max(0, amount - freeAmount));
 }
 
-export type Tariff = {
-    pricePerKm: Money;
-    pricePerMinute: Money;
+export class Tariff {
+    constructor(public pricePerKm: Money, public pricePerMinute: Money) {}
 }
 
 export class RentalPackage {

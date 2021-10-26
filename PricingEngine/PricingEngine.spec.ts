@@ -49,7 +49,7 @@ export class PricingEngineSpec {
 
     @Test()
     @TestCase(
-      {pricePerKm: EUR(10), pricePerMinute: EUR(20)},
+      new Tariff(EUR(10), EUR(20)),
       new Trip(DurationInMinutes(60), MileageInKilometres(50)),
       new RentalPackage(MileageInKilometres(0), DurationInMinutes(0)),
       EUR(1700))
