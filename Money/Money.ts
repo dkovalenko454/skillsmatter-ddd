@@ -1,7 +1,7 @@
-export const Euro = "EUR";
-export const UnitedStatesDollar = "USD";
-
-export type Currency = typeof Euro | typeof UnitedStatesDollar;
+export enum Currency {
+    Euro = "EUR",
+    UnitedStatesDollar = "USD"
+}
 
 class money implements Money {
     constructor(
@@ -24,9 +24,9 @@ export type Money = {
 }
 
 export function EUR(amountInCents: number): Money {
-    return new money(amountInCents, Euro);
+    return new money(amountInCents, Currency.Euro);
 }
 
 export function USD(amountInCents: number): Money {
-    return new money(amountInCents, UnitedStatesDollar);
+    return new money(amountInCents, Currency.UnitedStatesDollar);
 }

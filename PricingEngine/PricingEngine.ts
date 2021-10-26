@@ -13,7 +13,7 @@ export const DurationInMinutes = (duration: number): Duration => duration;
 export type Mileage = Amount;
 export const MileageInKilometres = (mileage: number): Mileage => mileage;
 
-export type CalculatePrice<Amount> = (pricePer: Money, amount: Amount, freeAmount?: Amount) => Money;
+export type CalculatePrice<Amount> = (pricePerOne: Money, amount: Amount, freeAmount?: Amount) => Money;
 export const pricingEngine: CalculatePrice<Duration | Mileage> = (pricePerOne, amount, freeAmount = Amount.empty()) => {
     return pricePerOne.multiplyAndRound(Math.max(0, amount - freeAmount));
 }
