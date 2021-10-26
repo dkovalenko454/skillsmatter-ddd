@@ -16,11 +16,17 @@ class money implements Money {
     multiplyAndRound(by: number): Money {
         return new money(Math.round(this.amountInCents * by), this.currency);
     }
+
+    // todo this doesn't handle different currencies
+    add(other: money): Money {
+        return new money(this.amountInCents + other.amountInCents, this.currency);
+    }
 }
 
 export type Money = {
     equalTo(other: Money): boolean;
     multiplyAndRound(by: number): Money;
+    add(other: Money): Money;
 }
 
 export function EUR(amountInCents: number): Money {

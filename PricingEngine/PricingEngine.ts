@@ -22,7 +22,5 @@ export const tripPricingEngine: CalculateTripPrice = (tripTariff: Tariff, trip: 
     const mileagePrice = pricingEngine(tripTariff.pricePerKm, trip.mileage, rentalPackage.mileageAllowance);
     const durationPrice = pricingEngine(tripTariff.pricePerMinute, trip.duration, rentalPackage.durationAllowance);
 
-    return durationPrice;
-    // todo
-    //return mileagePrice.add(durationPrice);
+    return mileagePrice.add(durationPrice);
 }
