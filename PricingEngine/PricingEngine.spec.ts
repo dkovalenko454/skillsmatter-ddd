@@ -1,6 +1,7 @@
 import {Expect, Test, TestCase} from 'alsatian';
-import {Duration, DurationInMinutes, Mileage, MileageInKilometres, pricingEngine} from "./PricingEngine";
+import {pricingEngine, RentalPackage} from "./PricingEngine";
 import {EUR, Money} from "../Money/Money";
+import {Duration, DurationInMinutes, Mileage, MileageInKilometres, Trip} from "../Trip/Trip";
 
 export class PricingEngineSpec {
     @Test()
@@ -41,6 +42,18 @@ export class PricingEngineSpec {
     @TestCase(EUR(10), MileageInKilometres(100), MileageInKilometres(100), EUR(0))
     CalculatePrice_extra_mileage_charged_per_km(pricePerKm: Money, mileage: Mileage, freeMileage: Mileage, totalPrice: Money) {
         const actual = pricingEngine(pricePerKm, mileage, freeMileage);
+        const expected = totalPrice;
+
+        Expect(actual.equalTo(expected)).toBe(true);
+    }
+
+    @Test()
+    @TestCase(EUR(10), EUR(20),
+      {mileage: MileageInKilometres(50), duration: DurationInMinutes(60)},
+      {mileageAllowance: MileageInKilometres(0), durationAllowance: DurationInMinutes(0)},
+      EUR(1700))
+    CalculatePrice_trip_price_using_package(pricePerKm: Money, pricePerMinute: Money, trip: Trip, rentalPackage: RentalPackage, totalPrice: Money) {
+        const actual = pricingEngine(pricePerKm, trip.duration, rentalPackage.durationAllowance);
         const expected = totalPrice;
 
         Expect(actual.equalTo(expected)).toBe(true);

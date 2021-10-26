@@ -1,17 +1,10 @@
 import {Money} from "../Money/Money";
+import {Amount, Duration, Mileage} from "../Trip/Trip";
 
-type Amount = number;
-namespace Amount {
-    export function empty(): Amount {
-        return 0;
-    }
-}
-
-export type Duration = Amount;
-export const DurationInMinutes = (duration: number): Duration => duration;
-
-export type Mileage = Amount;
-export const MileageInKilometres = (mileage: number): Mileage => mileage;
+export type RentalPackage = {
+    mileageAllowance: Mileage;
+    durationAllowance: Duration;
+};
 
 export type CalculatePrice<Amount> = (pricePerOne: Money, amount: Amount, freeAmount?: Amount) => Money;
 export const pricingEngine: CalculatePrice<Duration | Mileage> = (pricePerOne, amount, freeAmount = Amount.empty()) => {
