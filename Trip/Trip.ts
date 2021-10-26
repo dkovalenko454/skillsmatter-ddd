@@ -12,7 +12,6 @@ export const DurationInMinutes = (duration: number): Duration => duration;
 export type Mileage = Amount;
 export const MileageInKilometres = (mileage: number): Mileage => mileage;
 
-export type Trip = {
-  mileage: Mileage;
-  duration: Duration;
-};
+export class Trip {
+  constructor(public mileage: Mileage, public duration: Duration) {}
+}

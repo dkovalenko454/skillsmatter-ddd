@@ -50,7 +50,7 @@ export class PricingEngineSpec {
     @Test()
     @TestCase(
       {pricePerKm: EUR(10), pricePerMinute: EUR(20)},
-      {mileage: MileageInKilometres(50), duration: DurationInMinutes(60)},
+      new Trip(DurationInMinutes(60), MileageInKilometres(50)),
       {mileageAllowance: MileageInKilometres(0), durationAllowance: DurationInMinutes(0)},
       EUR(1700))
     CalculatePrice_trip_price_using_package(tripTariff: Tariff, trip: Trip, rentalPackage: RentalPackage, totalPrice: Money) {
