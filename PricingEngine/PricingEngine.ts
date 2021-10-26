@@ -11,10 +11,9 @@ export type Tariff = {
     pricePerMinute: Money;
 }
 
-export type RentalPackage = {
-    mileageAllowance: Mileage;
-    durationAllowance: Duration;
-};
+export class RentalPackage {
+    constructor(public mileageAllowance: Mileage, public durationAllowance: Duration) {}
+}
 
 // todo should rentalPackage be optional?
 export type CalculateTripPrice = (tripTariff: Tariff, trip: Trip, rentalPackage: RentalPackage) => Money;

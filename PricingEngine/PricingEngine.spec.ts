@@ -51,7 +51,7 @@ export class PricingEngineSpec {
     @TestCase(
       {pricePerKm: EUR(10), pricePerMinute: EUR(20)},
       new Trip(DurationInMinutes(60), MileageInKilometres(50)),
-      {mileageAllowance: MileageInKilometres(0), durationAllowance: DurationInMinutes(0)},
+      new RentalPackage(MileageInKilometres(0), DurationInMinutes(0)),
       EUR(1700))
     CalculatePrice_trip_price_using_package(tripTariff: Tariff, trip: Trip, rentalPackage: RentalPackage, totalPrice: Money) {
         const actual = tripPricingEngine(tripTariff, trip, rentalPackage);
