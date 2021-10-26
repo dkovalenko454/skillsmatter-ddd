@@ -17,9 +17,12 @@ class money implements Money {
         return new money(Math.round(this.amountInCents * by), this.currency);
     }
 
-    // todo this doesn't handle different currencies
     add(other: money): Money {
-        return new money(this.amountInCents + other.amountInCents, this.currency);
+        if (this.currency !== other.currency) {
+            throw new Error("Adding different currencies is not supported");
+        } else {
+            return new money(this.amountInCents + other.amountInCents, this.currency);
+        }
     }
 }
 
