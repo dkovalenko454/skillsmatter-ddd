@@ -11,7 +11,7 @@ export class Tariff {
 }
 
 export class RentalPackage {
-    constructor(public mileageAllowance: Mileage, public durationAllowance: Duration) {}
+    constructor(public mileageAllowance: Mileage, public durationAllowance: Duration, public packagePrice: Money) {}
 }
 
 // todo should rentalPackage be optional?
@@ -20,5 +20,5 @@ export const tripPricingEngine: CalculateTripPrice = (tripTariff: Tariff, trip: 
     const mileagePrice = pricingEngine(tripTariff.pricePerKm, trip.mileage, rentalPackage.mileageAllowance);
     const durationPrice = pricingEngine(tripTariff.pricePerMinute, trip.duration, rentalPackage.durationAllowance);
 
-    return mileagePrice.add(durationPrice);
+    return rentalPackage.packagePrice.add(mileagePrice.add(durationPrice));
 }

@@ -48,11 +48,36 @@ export class PricingEngineSpec {
     }
 
     @Test()
+    // no allowance in rental package
     @TestCase(
       new Tariff(EUR(10), EUR(20)),
-      new Trip(DurationInMinutes(60), MileageInKilometres(50)),
-      new RentalPackage(MileageInKilometres(0), DurationInMinutes(0)),
-      EUR(1700))
+      new Trip(MileageInKilometres(50), DurationInMinutes(60)),
+      new RentalPackage(MileageInKilometres(0), DurationInMinutes(0), EUR(1000)),
+      EUR(2700))
+    // duration allowance in rental package
+    @TestCase(
+      new Tariff(EUR(10), EUR(20)),
+      new Trip(MileageInKilometres(50), DurationInMinutes(60)),
+      new RentalPackage(MileageInKilometres(0), DurationInMinutes(30), EUR(1000)),
+      EUR(2100))
+    // mileage allowance in rental package
+    @TestCase(
+      new Tariff(EUR(10), EUR(20)),
+      new Trip(MileageInKilometres(50), DurationInMinutes(60)),
+      new RentalPackage(MileageInKilometres(30), DurationInMinutes(0), EUR(1000)),
+      EUR(2400))
+    // duration and mileage allowance in rental package
+    @TestCase(
+      new Tariff(EUR(10), EUR(20)),
+      new Trip(MileageInKilometres(50), DurationInMinutes(60)),
+      new RentalPackage(MileageInKilometres(30), DurationInMinutes(30), EUR(1000)),
+      EUR(1800))
+    // duration and mileage allowance greater than trip
+    @TestCase(
+      new Tariff(EUR(10), EUR(20)),
+      new Trip(MileageInKilometres(50), DurationInMinutes(60)),
+      new RentalPackage(MileageInKilometres(50), DurationInMinutes(60), EUR(1000)),
+      EUR(1000))
     CalculatePrice_trip_price_using_package(tripTariff: Tariff, trip: Trip, rentalPackage: RentalPackage, totalPrice: Money) {
         const actual = tripPricingEngine(tripTariff, trip, rentalPackage);
         const expected = totalPrice;
