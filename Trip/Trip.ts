@@ -1,5 +1,5 @@
 // todo do we need Amount?
-type Amount = number;
+export type Amount = number;
 export namespace Amount {
   export function empty(): Amount {
     return 0;

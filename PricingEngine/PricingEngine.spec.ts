@@ -1,5 +1,5 @@
 import {Expect, Test, TestCase} from 'alsatian';
-import {pricingEngine, RentalPackage} from "./PricingEngine";
+import {pricingEngine, RentalPackage, Tariff, tripPricingEngine} from "./PricingEngine";
 import {EUR, Money} from "../Money/Money";
 import {Duration, DurationInMinutes, Mileage, MileageInKilometres, Trip} from "../Trip/Trip";
 
@@ -48,12 +48,13 @@ export class PricingEngineSpec {
     }
 
     @Test()
-    @TestCase(EUR(10), EUR(20),
+    @TestCase(
+      {pricePerKm: EUR(10), pricePerMinute: EUR(20)},
       {mileage: MileageInKilometres(50), duration: DurationInMinutes(60)},
       {mileageAllowance: MileageInKilometres(0), durationAllowance: DurationInMinutes(0)},
       EUR(1700))
-    CalculatePrice_trip_price_using_package(pricePerKm: Money, pricePerMinute: Money, trip: Trip, rentalPackage: RentalPackage, totalPrice: Money) {
-        const actual = pricingEngine(pricePerKm, trip.duration, rentalPackage.durationAllowance);
+    CalculatePrice_trip_price_using_package(tripTariff: Tariff, trip: Trip, rentalPackage: RentalPackage, totalPrice: Money) {
+        const actual = tripPricingEngine(tripTariff, trip, rentalPackage);
         const expected = totalPrice;
 
         Expect(actual.equalTo(expected)).toBe(true);
